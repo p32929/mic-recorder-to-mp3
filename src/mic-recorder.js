@@ -170,20 +170,16 @@ class MicRecorder {
             return previousOperation.then(() => {
                 return new Promise((resolve) => {
                     //this improve browser responsiveness during encoding process
-                    setTimeout(() => {
-                        this.lameEncoder.encode(rawChunk);
-                        resolve();
-                    });
+                    // setTimeout(() => {
+                    //     this.lameEncoder.encode(rawChunk);
+                    //     resolve();
+                    // });
+
+                    this.lameEncoder.encode(rawChunk);
+                    resolve();
                 });
             });
         }, Promise.resolve());
-    }
-
-    encodeRawChunksFast() {
-        return new Promise(() => {
-            this.lameEncoder.encode(this.rawChunksBuffer);
-            resolve();
-        })
     }
 
     /**
@@ -212,14 +208,6 @@ class MicRecorder {
         return (
             this.config.encodeAfterRecord
                 ? this.encodeRawChunks()
-                : Promise.resolve()
-        ).then(() => this.finishEncoding());
-    }
-
-    getMp3Fast() {
-        return (
-            this.config.encodeAfterRecord
-                ? this.encodeRawChunksFast()
                 : Promise.resolve()
         ).then(() => this.finishEncoding());
     }
