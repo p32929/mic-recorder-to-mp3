@@ -179,6 +179,13 @@ class MicRecorder {
         }, Promise.resolve());
     }
 
+    encodeRawChunksFast() {
+        return new Promise(() => {
+            this.lameEncoder.encode(this.rawChunksBuffer);
+            resolve();
+        })
+    }
+
     /**
      * Finishes encoding process and returns prepared mp3 file as a result
      * @return Promise
@@ -205,6 +212,14 @@ class MicRecorder {
         return (
             this.config.encodeAfterRecord
                 ? this.encodeRawChunks()
+                : Promise.resolve()
+        ).then(() => this.finishEncoding());
+    }
+
+    getMp3Fast() {
+        return (
+            this.config.encodeAfterRecord
+                ? this.encodeRawChunksFast()
                 : Promise.resolve()
         ).then(() => this.finishEncoding());
     }
