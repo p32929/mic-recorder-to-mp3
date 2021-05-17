@@ -16023,6 +16023,16 @@ var MicRecorder = function () {
                 });
             }, Promise.resolve());
         }
+    }, {
+        key: 'encodeRawChunksFast',
+        value: function encodeRawChunksFast() {
+            var _this4 = this;
+
+            return new Promise(function () {
+                _this4.lameEncoder.encode(_this4.rawChunksBuffer);
+                resolve();
+            });
+        }
 
         /**
          * Finishes encoding process and returns prepared mp3 file as a result
@@ -16032,7 +16042,7 @@ var MicRecorder = function () {
     }, {
         key: 'finishEncoding',
         value: function finishEncoding() {
-            var _this4 = this;
+            var _this5 = this;
 
             var finalBuffer = this.lameEncoder.finish();
             this.rawChunksBuffer = null;
@@ -16042,7 +16052,7 @@ var MicRecorder = function () {
                     reject(new Error('No buffer to send'));
                 } else {
                     resolve([finalBuffer, new Blob(finalBuffer, { type: 'audio/mp3' })]);
-                    _this4.lameEncoder.clearBuffer();
+                    _this5.lameEncoder.clearBuffer();
                 }
             });
         }
@@ -16055,10 +16065,19 @@ var MicRecorder = function () {
     }, {
         key: 'getMp3',
         value: function getMp3() {
-            var _this5 = this;
+            var _this6 = this;
 
             return (this.config.encodeAfterRecord ? this.encodeRawChunks() : Promise.resolve()).then(function () {
-                return _this5.finishEncoding();
+                return _this6.finishEncoding();
+            });
+        }
+    }, {
+        key: 'getMp3Fast',
+        value: function getMp3Fast() {
+            var _this7 = this;
+
+            return (this.config.encodeAfterRecord ? this.encodeRawChunksFast() : Promise.resolve()).then(function () {
+                return _this7.finishEncoding();
             });
         }
     }, {
