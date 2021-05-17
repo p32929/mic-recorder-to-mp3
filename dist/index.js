@@ -16015,23 +16015,16 @@ var MicRecorder = function () {
                 return previousOperation.then(function () {
                     return new Promise(function (resolve) {
                         //this improve browser responsiveness during encoding process
-                        setTimeout(function () {
-                            _this3.lameEncoder.encode(rawChunk);
-                            resolve();
-                        });
+                        // setTimeout(() => {
+                        //     this.lameEncoder.encode(rawChunk);
+                        //     resolve();
+                        // });
+
+                        _this3.lameEncoder.encode(rawChunk);
+                        resolve();
                     });
                 });
             }, Promise.resolve());
-        }
-    }, {
-        key: 'encodeRawChunksFast',
-        value: function encodeRawChunksFast() {
-            var _this4 = this;
-
-            return new Promise(function () {
-                _this4.lameEncoder.encode(_this4.rawChunksBuffer);
-                resolve();
-            });
         }
 
         /**
@@ -16042,7 +16035,7 @@ var MicRecorder = function () {
     }, {
         key: 'finishEncoding',
         value: function finishEncoding() {
-            var _this5 = this;
+            var _this4 = this;
 
             var finalBuffer = this.lameEncoder.finish();
             this.rawChunksBuffer = null;
@@ -16052,7 +16045,7 @@ var MicRecorder = function () {
                     reject(new Error('No buffer to send'));
                 } else {
                     resolve([finalBuffer, new Blob(finalBuffer, { type: 'audio/mp3' })]);
-                    _this5.lameEncoder.clearBuffer();
+                    _this4.lameEncoder.clearBuffer();
                 }
             });
         }
@@ -16065,19 +16058,10 @@ var MicRecorder = function () {
     }, {
         key: 'getMp3',
         value: function getMp3() {
-            var _this6 = this;
+            var _this5 = this;
 
             return (this.config.encodeAfterRecord ? this.encodeRawChunks() : Promise.resolve()).then(function () {
-                return _this6.finishEncoding();
-            });
-        }
-    }, {
-        key: 'getMp3Fast',
-        value: function getMp3Fast() {
-            var _this7 = this;
-
-            return (this.config.encodeAfterRecord ? this.encodeRawChunksFast() : Promise.resolve()).then(function () {
-                return _this7.finishEncoding();
+                return _this5.finishEncoding();
             });
         }
     }, {
