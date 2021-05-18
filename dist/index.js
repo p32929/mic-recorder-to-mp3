@@ -15820,7 +15820,7 @@ var MicRecorder = function () {
             // Encode to mp3 after finish recording
             // Encoding during recording may result in distorted audio
             // This could be crucial on mobile devices
-            encodeAfterRecord: true,
+            encodeAfterRecord: false,
             // There is a known issue with some macOS machines, where the recording
             // will sometimes have a loud 'pop' or 'pop-click' sound. This flag
             // prevents getting audio from the microphone a few milliseconds after
@@ -16018,7 +16018,7 @@ var MicRecorder = function () {
                         setTimeout(function () {
                             _this3.lameEncoder.encode(rawChunk);
                             resolve();
-                        }, 0);
+                        });
 
                         // this.lameEncoder.encode(rawChunk);
                         // resolve();
