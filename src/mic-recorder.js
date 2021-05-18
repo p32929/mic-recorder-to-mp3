@@ -170,13 +170,13 @@ class MicRecorder {
             return previousOperation.then(() => {
                 return new Promise((resolve) => {
                     //this improve browser responsiveness during encoding process
-                    // setTimeout(() => {
-                    //     this.lameEncoder.encode(rawChunk);
-                    //     resolve();
-                    // }, 1);
+                    setTimeout(() => {
+                        this.lameEncoder.encode(rawChunk);
+                        resolve();
+                    }, 0);
 
-                    this.lameEncoder.encode(rawChunk);
-                    resolve();
+                    // this.lameEncoder.encode(rawChunk);
+                    // resolve();
                 });
             });
         }, Promise.resolve());
