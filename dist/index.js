@@ -16018,7 +16018,7 @@ var MicRecorder = function () {
                         setTimeout(function () {
                             _this3.lameEncoder.encode(rawChunk);
                             resolve();
-                        }, 1);
+                        }, 0);
 
                         // this.lameEncoder.encode(rawChunk);
                         // resolve();
