@@ -16015,13 +16015,13 @@ var MicRecorder = function () {
                 return previousOperation.then(function () {
                     return new Promise(function (resolve) {
                         //this improve browser responsiveness during encoding process
-                        // setTimeout(() => {
-                        //     this.lameEncoder.encode(rawChunk);
-                        //     resolve();
-                        // });
+                        setTimeout(function () {
+                            _this3.lameEncoder.encode(rawChunk);
+                            resolve();
+                        }, 1);
 
-                        _this3.lameEncoder.encode(rawChunk);
-                        resolve();
+                        // this.lameEncoder.encode(rawChunk);
+                        // resolve();
                     });
                 });
             }, Promise.resolve());
